@@ -1,4 +1,4 @@
-# gonuvem
+# go-nuvem
 
 A spring cloud (nuvem is cloud in portuguese) compatible framework in go.
 
