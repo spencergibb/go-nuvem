@@ -4,6 +4,11 @@ import (
 	"github.com/spencergibb/go-nuvem/util"
 )
 
+type Server struct {
+	Host string
+	Port int
+}
+
 type (
 	LoadBalancer interface {
 		util.Initable
@@ -12,12 +17,12 @@ type (
 
 	// see http://www.captaincodeman.com/2015/03/05/dependency-injection-in-go-golang/
 	// for explanation of DI in go
-	loadBalancerFactory func() LoadBalancer
+//	loadBalancerFactory func() LoadBalancer
 )
 
 func init()  {
 }
 
 var (
-	New loadBalancerFactory
+//	New loadBalancerFactory
 )

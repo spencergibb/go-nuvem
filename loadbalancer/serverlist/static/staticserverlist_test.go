@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
-	lbbuilder "github.com/spencergibb/go-nuvem/loadbalancer/builder"
+	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist/builder"
 	"github.com/spencergibb/go-nuvem/initialize"
 )
 
@@ -15,11 +15,12 @@ func TestChoose(t *testing.T) {
 	initialze.Init() //TODO: get rid of
 	viper.SetConfigType("yaml")
 	yaml := []byte(`
-loadbalancer.test.static.servers:
+loadbalancer.test.serverlist.static.servers:
 - localhost:8080
+- 127.0.0.1:9080
 `)
 	err := viper.ReadConfig(bytes.NewBuffer(yaml))
-	viper.SetDefault("loadbalancer.test.factory", "StaticLoadBalancer")
+	viper.SetDefault("loadbalancer.serverlist.test.factory", "StaticServerList")
 //	servers := viper.GetStringSlice("loadbalancer.test.static.servers")
 //	fmt.Printf("%+v\n", servers)
 //	factory := viper.GetString("loadbalancer.test.factory")
@@ -29,13 +30,14 @@ loadbalancer.test.static.servers:
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}
 
-//	loadbalancer.New = NewStaticLoadBalancer
-//	lb := loadbalancer.New()
-	lb := lbbuilder.Build("test")
-	require.NotNil(t, lb, "lb was nil")
+	sl := builder.Build("test")
+	require.NotNil(t, sl, "sl was nil")
 
-	server := lb.Choose()
-	require.NotNil(t, server, "server was nil")
+	servers := sl.GetServers()
+	require.NotNil(t, servers, "servers was nil")
+	assert.Equal(t, 2, len(servers), "wrong # of servers")
+
+	server := servers[0]
 	fmt.Printf("%+v\n", server)
 
 	assert.Equal(t, "localhost", server.Host, "wrong Host")
