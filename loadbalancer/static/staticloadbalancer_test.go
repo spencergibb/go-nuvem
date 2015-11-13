@@ -26,7 +26,9 @@ loadbalancer.static.test.servers:
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}
 
-	lb := loadbalancer.New("test")
+	lb := loadbalancer.New()
+	lb.Init("test")
+
 	server := lb.Choose()
 	assert.NotNil(t, server, "server was nil")
 	fmt.Printf("%+v\n", server)

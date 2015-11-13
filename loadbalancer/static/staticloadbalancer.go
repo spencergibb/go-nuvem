@@ -11,16 +11,20 @@ import (
 
 type (
 	staticLoadBalancer struct {
-		Namespace string
+		namespace string
 	}
 )
 
-func NewStaticLoadBalancer(namespace string) loadbalancer.LoadBalancer {
-	return &staticLoadBalancer{Namespace: namespace}
+func NewStaticLoadBalancer() loadbalancer.LoadBalancer {
+	return &staticLoadBalancer{}
+}
+
+func (s *staticLoadBalancer) Init(namespace string) {
+	s.namespace = namespace
 }
 
 func (s *staticLoadBalancer) Choose() loadbalancer.Server {
-	servers := viper.GetStringSlice(fmt.Sprintf("loadbalancer.static.%s.servers", s.Namespace))
+	servers := viper.GetStringSlice(fmt.Sprintf("loadbalancer.static.%s.servers", s.namespace))
 
 
 	if (len(servers) == 0) {
