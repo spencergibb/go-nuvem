@@ -1,7 +1,7 @@
 package loadbalancer
 
 import (
-	"github.com/spencergibb/go-nuvem/util"
+	"github.com/spencergibb/go-nuvem"
 )
 
 type (
