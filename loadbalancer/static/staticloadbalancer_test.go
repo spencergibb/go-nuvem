@@ -8,11 +8,11 @@ import (
 	"github.com/stretchr/testify/require"
 	"testing"
 	lbbuilder "github.com/spencergibb/go-nuvem/loadbalancer/builder"
-	"github.com/spencergibb/go-nuvem/init"
+	"github.com/spencergibb/go-nuvem/initialize"
 )
 
 func TestChoose(t *testing.T) {
-	init.Init() //TODO: get rid of
+	initialze.Init() //TODO: get rid of
 	viper.SetConfigType("yaml")
 	yaml := []byte(`
 loadbalancer.test.static.servers:
