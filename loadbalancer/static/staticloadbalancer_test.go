@@ -6,12 +6,16 @@ import (
 	"github.com/stretchr/testify/assert"
 	"fmt"
 	"bytes"
+	"github.com/spencergibb/go-nuvem/loadbalancer"
 )
 
 func TestChoose(t *testing.T) {
+
+	loadbalancer.New = NewStaticLoadBalancer
+
 	viper.SetConfigType("yaml")
 	yaml := []byte(`
-loadbalancer.static.servers:
+loadbalancer.static.test.servers:
 - localhost:8080
 `)
 	err := viper.ReadConfig(bytes.NewBuffer(yaml))
@@ -22,8 +26,8 @@ loadbalancer.static.servers:
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}
 
-	lb := StaticLoadBalancer{}
-	server := lb.choose()
+	lb := loadbalancer.New("test")
+	server := lb.Choose()
 	assert.NotNil(t, server, "server was nil")
 	fmt.Printf("%+v\n", server)
 

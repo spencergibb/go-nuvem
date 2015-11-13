@@ -6,18 +6,26 @@ import (
 	"math/rand"
 	"net"
 	"strconv"
-//	"fmt"
+	"fmt"
 )
 
-type StaticLoadBalancer struct {
+type (
+	staticLoadBalancer struct {
+		Namespace string
+	}
+)
 
+func NewStaticLoadBalancer(namespace string) loadbalancer.LoadBalancer {
+	return &staticLoadBalancer{Namespace: namespace}
 }
 
-func (s StaticLoadBalancer) choose() *loadbalancer.Server {
-	servers := viper.GetStringSlice("loadbalancer.static.servers")
+func (s *staticLoadBalancer) Choose() loadbalancer.Server {
+	servers := viper.GetStringSlice(fmt.Sprintf("loadbalancer.static.%s.servers", s.Namespace))
+
 
 	if (len(servers) == 0) {
-		return nil
+		var s loadbalancer.Server
+		return s
 	}
 
 //	fmt.Printf("%+v\n", servers)
@@ -30,5 +38,5 @@ func (s StaticLoadBalancer) choose() *loadbalancer.Server {
 
 	print(err)
 
-	return &loadbalancer.Server{Host: host, Port: port}
+	return loadbalancer.Server{Host: host, Port: port}
 }
