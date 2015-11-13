@@ -1,5 +1,7 @@
 # go-nuvem
 
+[![Build Status](https://travis-ci.org/spencergibb/go-nuvem.svg?branch=master)](https://travis-ci.org/spencergibb/go-nuvem)
+
 A spring cloud (nuvem is cloud in portuguese) compatible framework in go.
 
 ### Existing
