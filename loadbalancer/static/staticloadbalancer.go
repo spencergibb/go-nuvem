@@ -1,38 +1,40 @@
 package static
 
 import (
+	"fmt"
     "github.com/spencergibb/go-nuvem/loadbalancer"
+	"github.com/spencergibb/go-nuvem/loadbalancer/builder"
     "github.com/spf13/viper"
 	"math/rand"
 	"net"
 	"strconv"
-	"fmt"
 )
 
 type (
-	staticLoadBalancer struct {
+	StaticLoadBalancer struct {
 		namespace string
 	}
 )
 
 func NewStaticLoadBalancer() loadbalancer.LoadBalancer {
-	return &staticLoadBalancer{}
+	return &StaticLoadBalancer{}
 }
 
-func (s *staticLoadBalancer) Init(namespace string) {
+func (s *StaticLoadBalancer) Init(namespace string) {
 	s.namespace = namespace
 }
 
-func (s *staticLoadBalancer) Choose() loadbalancer.Server {
-	servers := viper.GetStringSlice(fmt.Sprintf("loadbalancer.static.%s.servers", s.namespace))
+func (s *StaticLoadBalancer) Choose() *loadbalancer.Server {
+	key := fmt.Sprintf("loadbalancer.%s.static.servers", s.namespace)
+//	fmt.Printf("key %+v\n", key)
+	servers := viper.GetStringSlice(key)
 
 
 	if (len(servers) == 0) {
-		var s loadbalancer.Server
-		return s
+		return nil
 	}
 
-//	fmt.Printf("%+v\n", servers)
+	fmt.Printf("servers %+v\n", servers)
 //	TODO: implement rules
 	idx := rand.Intn(len(servers))
 
@@ -40,7 +42,12 @@ func (s *staticLoadBalancer) Choose() loadbalancer.Server {
 
 	port, err := strconv.Atoi(portStr)
 
-	print(err)
+	print(err) //TODO: deal with err
 
-	return loadbalancer.Server{Host: host, Port: port}
+	return &loadbalancer.Server{Host: host, Port: port}
+}
+
+func init() {
+	println("registering static lb")
+	builder.Register("StaticLoadBalancer", NewStaticLoadBalancer)
 }

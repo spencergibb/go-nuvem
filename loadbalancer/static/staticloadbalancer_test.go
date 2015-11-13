@@ -1,38 +1,43 @@
 package static
 
 import (
-	"testing"
+	"bytes"
+	"fmt"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
-	"fmt"
-	"bytes"
-	"github.com/spencergibb/go-nuvem/loadbalancer"
+	"github.com/stretchr/testify/require"
+	"testing"
+	lbbuilder "github.com/spencergibb/go-nuvem/loadbalancer/builder"
+	"github.com/spencergibb/go-nuvem/init"
 )
 
 func TestChoose(t *testing.T) {
-
-	loadbalancer.New = NewStaticLoadBalancer
-
+	init.Init() //TODO: get rid of
 	viper.SetConfigType("yaml")
 	yaml := []byte(`
-loadbalancer.static.test.servers:
+loadbalancer.test.static.servers:
 - localhost:8080
 `)
 	err := viper.ReadConfig(bytes.NewBuffer(yaml))
-//	servers := viper.GetStringSlice("loadbalancer.static.servers")
+	viper.SetDefault("loadbalancer.test.factory", "StaticLoadBalancer")
+//	servers := viper.GetStringSlice("loadbalancer.test.static.servers")
 //	fmt.Printf("%+v\n", servers)
+//	factory := viper.GetString("loadbalancer.test.factory")
+//	fmt.Printf("%+v\n", factory)
 
 	if err != nil { // Handle errors reading the config file
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}
 
-	lb := loadbalancer.New()
-	lb.Init("test")
+//	loadbalancer.New = NewStaticLoadBalancer
+//	lb := loadbalancer.New()
+	lb := lbbuilder.Build("test")
+	require.NotNil(t, lb, "lb was nil")
 
 	server := lb.Choose()
-	assert.NotNil(t, server, "server was nil")
+	require.NotNil(t, server, "server was nil")
 	fmt.Printf("%+v\n", server)
 
-	assert.Equal(t, server.Host, "localhost", "wrong Host")
-	assert.Equal(t, server.Port, 8080, "wrong Port")
+	assert.Equal(t, "localhost", server.Host, "wrong Host")
+	assert.Equal(t, 8080, server.Port, "wrong Port")
 }
