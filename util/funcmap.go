@@ -27,7 +27,7 @@ func (f Funcs) Bind(name string, fn interface{}) (err error) {
 	return
 }
 
-func (f Funcs) Call(name string, params ... interface{}) (result []reflect.Value, err error) {
+func (f Funcs) Call(name string, params ...interface{}) (result []reflect.Value, err error) {
 	if _, ok := f[name]; !ok {
 		err = errors.New(name + " does not exist.")
 		return

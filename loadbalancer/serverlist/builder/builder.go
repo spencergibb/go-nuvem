@@ -2,13 +2,13 @@ package builder
 
 import (
 	"github.com/spencergibb/go-nuvem/util"
-//	"fmt"
-//	"errors"
-//	"strconv"
-//	"reflect"
-	"github.com/spf13/viper"
+	//	"fmt"
+	//	"errors"
+	//	"strconv"
+	//	"reflect"
 	"fmt"
-//	"reflect"
+	"github.com/spf13/viper"
+	//	"reflect"
 	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist"
 )
 
@@ -32,7 +32,7 @@ func Build(namespace string) serverlist.ServerList {
 	results, err := factories.Call(factory)
 
 	if len(results) != 1 {
-		return nil//, errors.New("Wrong number of loadbalancer results " + strconv.Itoa(len(results)))
+		return nil //, errors.New("Wrong number of loadbalancer results " + strconv.Itoa(len(results)))
 	}
 
 	result := results[0]

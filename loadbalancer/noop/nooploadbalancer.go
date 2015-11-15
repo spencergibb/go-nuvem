@@ -1,7 +1,7 @@
 package noop
 
 import (
-    "github.com/spencergibb/go-nuvem/loadbalancer"
+	"github.com/spencergibb/go-nuvem/loadbalancer"
 	"github.com/spencergibb/go-nuvem/loadbalancer/builder"
 )
 

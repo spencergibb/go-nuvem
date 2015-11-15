@@ -1,6 +1,7 @@
 package initialze
+
 import "github.com/spencergibb/go-nuvem/loadbalancer/noop"
 
-func Init()  {
+func Init() {
 	noop.Load()
 }

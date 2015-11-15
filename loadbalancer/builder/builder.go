@@ -2,14 +2,14 @@ package builder
 
 import (
 	"github.com/spencergibb/go-nuvem/util"
-//	"fmt"
-//	"errors"
-//	"strconv"
-//	"reflect"
+	//	"fmt"
+	//	"errors"
+	//	"strconv"
+	//	"reflect"
+	"fmt"
 	"github.com/spencergibb/go-nuvem/loadbalancer"
 	"github.com/spf13/viper"
-	"fmt"
-//	"reflect"
+	//	"reflect"
 )
 
 var factories = util.NewFuncs()
@@ -32,21 +32,21 @@ func Build(namespace string) loadbalancer.LoadBalancer {
 	results, err := factories.Call(factory)
 
 	if len(results) != 1 {
-		return nil//, errors.New("Wrong number of loadbalancer results " + strconv.Itoa(len(results)))
+		return nil //, errors.New("Wrong number of loadbalancer results " + strconv.Itoa(len(results)))
 	}
 
 	result := results[0]
-//	fmt.Printf("Kind %+v\n", result.Kind())
-//	fmt.Printf("isPtr %+v\n", result.Kind() == reflect.Ptr)
-//	fmt.Printf("here %+v\n", result.Interface())
+	//	fmt.Printf("Kind %+v\n", result.Kind())
+	//	fmt.Printf("isPtr %+v\n", result.Kind() == reflect.Ptr)
+	//	fmt.Printf("here %+v\n", result.Interface())
 
 	lb := result.Interface().(loadbalancer.LoadBalancer)
-//	switch t := lb.(type) {
-//	default:
-//		fmt.Printf("unexpected type %T\n", t)     // %T prints whatever type t has
-//	case loadbalancer.LoadBalancer:
-//		return lb.(loadbalancer.LoadBalancer), nil
-//	}
+	//	switch t := lb.(type) {
+	//	default:
+	//		fmt.Printf("unexpected type %T\n", t)     // %T prints whatever type t has
+	//	case loadbalancer.LoadBalancer:
+	//		return lb.(loadbalancer.LoadBalancer), nil
+	//	}
 
 	//.Interface().(LoadBalancer)
 	lb.Init(namespace)

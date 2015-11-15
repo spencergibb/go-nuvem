@@ -3,12 +3,12 @@ package static
 import (
 	"bytes"
 	"fmt"
+	"github.com/spencergibb/go-nuvem/initialize"
+	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist/builder"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
-	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist/builder"
-	"github.com/spencergibb/go-nuvem/initialize"
 )
 
 func TestChoose(t *testing.T) {
@@ -21,10 +21,10 @@ loadbalancer.test.serverlist.static.servers:
 `)
 	err := viper.ReadConfig(bytes.NewBuffer(yaml))
 	viper.SetDefault("loadbalancer.serverlist.test.factory", "StaticServerList")
-//	servers := viper.GetStringSlice("loadbalancer.test.static.servers")
-//	fmt.Printf("%+v\n", servers)
-//	factory := viper.GetString("loadbalancer.test.factory")
-//	fmt.Printf("%+v\n", factory)
+	//	servers := viper.GetStringSlice("loadbalancer.test.static.servers")
+	//	fmt.Printf("%+v\n", servers)
+	//	factory := viper.GetString("loadbalancer.test.factory")
+	//	fmt.Printf("%+v\n", factory)
 
 	if err != nil { // Handle errors reading the config file
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))

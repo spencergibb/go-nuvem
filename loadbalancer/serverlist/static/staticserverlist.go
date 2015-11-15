@@ -2,12 +2,12 @@ package static
 
 import (
 	"fmt"
-    "github.com/spencergibb/go-nuvem/loadbalancer"
-    "github.com/spf13/viper"
+	"github.com/spencergibb/go-nuvem/loadbalancer"
 	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist"
 	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist/builder"
-	"strconv"
+	"github.com/spf13/viper"
 	"net"
+	"strconv"
 )
 
 type (

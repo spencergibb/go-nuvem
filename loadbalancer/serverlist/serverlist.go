@@ -10,5 +10,5 @@ type ServerList interface {
 	GetServers() []loadbalancer.Server
 }
 
-func init()  {
+func init() {
 }

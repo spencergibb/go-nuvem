@@ -20,7 +20,7 @@ type (
 //	loadBalancerFactory func() LoadBalancer
 )
 
-func init()  {
+func init() {
 }
 
 var (
