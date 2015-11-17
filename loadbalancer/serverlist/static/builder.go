@@ -11,12 +11,17 @@ func NewBuilder(ns string) Builder {
 
 type Builder struct {
 	namespace string
-	Servers   []string
+	servers   []string
+}
+
+func (b Builder) Servers(servers ...string) Builder {
+	b.servers = servers
+	return b
 }
 
 func (b Builder) Build() serverlist.ServerList {
 	serverList := StaticServerList{}
 	serverList.Namespace = b.namespace
-	serverList.Servers = b.Servers
+	serverList.Servers = b.servers
 	return &serverList
 }

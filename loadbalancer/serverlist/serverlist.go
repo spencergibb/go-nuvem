@@ -11,6 +11,7 @@ type ServerList interface {
 }
 
 type Builder interface {
+	Namespace(ns string) Builder
 	Build() ServerList
 }
 

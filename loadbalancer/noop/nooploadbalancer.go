@@ -19,7 +19,7 @@ func NewNoopLoadBalancer() loadbalancer.LoadBalancer {
 func (s *NoopLoadBalancer) Configure(namespace string) {
 	if s.Namespace != "" {
 		//TODO: use logging
-		fmt.Errorf("StaticServerList already inited: %s", s.Namespace)
+		fmt.Errorf("%s already inited: %s", FactoryKey, s.Namespace)
 		return
 	}
 	s.Namespace = namespace
@@ -29,10 +29,10 @@ func (s *NoopLoadBalancer) Choose() *loadbalancer.Server {
 	return nil
 }
 
-var NoopLoadBalancerKey = "NoopLoadBalancer"
+var FactoryKey = "NoopLoadBalancer"
 
 func Load() {}
 
 func init() {
-	factory.Register(NoopLoadBalancerKey, NewNoopLoadBalancer)
+	factory.Register(FactoryKey, NewNoopLoadBalancer)
 }

@@ -39,9 +39,9 @@ loadbalancer.test.serverlist.static.servers:
 
 func TestBuilder(t *testing.T) {
 	println("\nTestBuilder")
-	b := NewBuilder("test")
-	b.Servers = []string{"localhost:8080", "10.0.0.1:8765"}
-	serverList := b.Build()
+	serverList := NewBuilder("test").
+		Servers("localhost:8080", "10.0.0.1:8765").
+		Build()
 
 	servers := assertServerList(t, serverList, 2)
 	assertServer(t, servers[0], "localhost", 8080)

@@ -24,7 +24,7 @@ func NewStaticServerList() serverlist.ServerList {
 func (s *StaticServerList) Configure(namespace string) {
 	if s.Namespace != "" {
 		//TODO: use logging
-		fmt.Errorf("StaticServerList already inited: %s", s.Namespace)
+		fmt.Errorf("%s already inited: %s", FactoryKey, s.Namespace)
 		return
 	}
 	s.Namespace = namespace
@@ -55,7 +55,9 @@ func (s *StaticServerList) GetServerKey() string {
 	return key
 }
 
+var FactoryKey = "StaticServerList"
+
 func init() {
 	println("registering static serverlist")
-	factory.Register("StaticServerList", NewStaticServerList)
+	factory.Register(FactoryKey, NewStaticServerList)
 }
