@@ -5,6 +5,7 @@ import (
 	"github.com/spencergibb/go-nuvem/loadbalancer"
 	"github.com/spencergibb/go-nuvem/loadbalancer/factory"
 	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist"
+	slfactory "github.com/spencergibb/go-nuvem/loadbalancer/serverlist/factory"
 	"math/rand"
 )
 
@@ -25,6 +26,7 @@ func (s *SimpleLoadBalancer) Configure(namespace string) {
 		fmt.Errorf("%s already inited: %s", FactoryKey, s.Namespace)
 		return
 	}
+	s.ServerList = slfactory.Create(namespace)
 	s.Namespace = namespace
 }
 
