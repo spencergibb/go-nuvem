@@ -22,7 +22,7 @@ func NewStaticServerList() serverlist.ServerList {
 }
 
 func (s *StaticServerList) Configure(namespace string) {
-	if (s.Namespace != "") {
+	if s.Namespace != "" {
 		//TODO: use logging
 		fmt.Errorf("StaticServerList already inited: %s", s.Namespace)
 		return
