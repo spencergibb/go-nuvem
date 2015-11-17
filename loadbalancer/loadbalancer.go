@@ -20,6 +20,10 @@ type (
 //	loadBalancerFactory func() LoadBalancer
 )
 
+type Builder interface {
+	Build() LoadBalancer
+}
+
 func init() {
 }
 

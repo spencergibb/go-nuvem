@@ -2,6 +2,8 @@ package util
 
 import (
 	"errors"
+	"fmt"
+	"github.com/spf13/viper"
 	"reflect"
 )
 
@@ -42,4 +44,27 @@ func (f Funcs) Call(name string, params ...interface{}) (result []reflect.Value,
 	}
 	result = f[name].Call(in)
 	return
+}
+
+func (f Funcs) CallFactory(keyPrefix string, namespace string, defaultFactory string) *reflect.Value { //, error) {
+	key := fmt.Sprintf("%s.%s.factory", keyPrefix, namespace)
+	var factory string
+	if !viper.IsSet(key) {
+		//TODO: warn
+		println("key is not set: ", key)
+		factory = "StaticServerList" //TODO: default
+	} else {
+		factory = viper.GetString(key)
+	}
+	println("factory ", factory)
+	results, err := f.Call(factory)
+
+	print(err) //TODO deal with err
+
+	if len(results) != 1 {
+		return nil //, errors.New("Wrong number of loadbalancer results " + strconv.Itoa(len(results)))
+	}
+
+	result := results[0]
+	return &result
 }

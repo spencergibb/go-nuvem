@@ -3,7 +3,6 @@ package static
 import (
 	"bytes"
 	"fmt"
-	"github.com/spencergibb/go-nuvem/initialize"
 	"github.com/spencergibb/go-nuvem/loadbalancer"
 	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist"
 	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist/builder"
@@ -14,7 +13,6 @@ import (
 )
 
 func TestChoose(t *testing.T) {
-	initialze.Init() //TODO: get rid of
 	viper.SetConfigType("yaml")
 	yaml := []byte(`
 loadbalancer.test.serverlist.static.servers:

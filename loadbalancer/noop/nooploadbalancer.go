@@ -1,13 +1,14 @@
 package noop
 
 import (
+	"fmt"
 	"github.com/spencergibb/go-nuvem/loadbalancer"
 	"github.com/spencergibb/go-nuvem/loadbalancer/builder"
 )
 
 type (
 	NoopLoadBalancer struct {
-		namespace string
+		Namespace string
 	}
 )
 
@@ -16,7 +17,12 @@ func NewNoopLoadBalancer() loadbalancer.LoadBalancer {
 }
 
 func (s *NoopLoadBalancer) Configure(namespace string) {
-	s.namespace = namespace
+	if s.Namespace != "" {
+		//TODO: use logging
+		fmt.Errorf("StaticServerList already inited: %s", s.Namespace)
+		return
+	}
+	s.Namespace = namespace
 }
 
 func (s *NoopLoadBalancer) Choose() *loadbalancer.Server {
