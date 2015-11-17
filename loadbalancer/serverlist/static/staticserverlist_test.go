@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"github.com/spencergibb/go-nuvem/loadbalancer"
 	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist"
-	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist/builder"
+	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist/factory"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
 
-func TestChoose(t *testing.T) {
+func TestFactory(t *testing.T) {
 	viper.SetConfigType("yaml")
 	yaml := []byte(`
 loadbalancer.test.serverlist.static.servers:
@@ -30,7 +30,7 @@ loadbalancer.test.serverlist.static.servers:
 	//	factory := viper.GetString("loadbalancer.test.factory")
 	//	fmt.Printf("%+v\n", factory)
 
-	serverList := builder.Build("test")
+	serverList := factory.Create("test")
 	servers := assertServerList(t, serverList, 2)
 
 	assertServer(t, servers[0], "localhost", 8080)

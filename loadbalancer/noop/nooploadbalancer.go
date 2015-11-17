@@ -3,7 +3,7 @@ package noop
 import (
 	"fmt"
 	"github.com/spencergibb/go-nuvem/loadbalancer"
-	"github.com/spencergibb/go-nuvem/loadbalancer/builder"
+	"github.com/spencergibb/go-nuvem/loadbalancer/factory"
 )
 
 type (
@@ -34,5 +34,5 @@ var NoopLoadBalancerKey = "NoopLoadBalancer"
 func Load() {}
 
 func init() {
-	builder.Register(NoopLoadBalancerKey, NewNoopLoadBalancer)
+	factory.Register(NoopLoadBalancerKey, NewNoopLoadBalancer)
 }

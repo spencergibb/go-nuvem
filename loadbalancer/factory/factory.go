@@ -1,4 +1,4 @@
-package builder
+package factory
 
 import (
 	"github.com/spencergibb/go-nuvem/loadbalancer"
@@ -11,7 +11,7 @@ func Register(name string, fn interface{}) (err error) {
 	return factories.Bind(name, fn)
 }
 
-func Build(namespace string) loadbalancer.LoadBalancer {
+func Create(namespace string) loadbalancer.LoadBalancer {
 	result := factories.CallFactory("loadbalancer", namespace, "NoopLoadBalancer")
 
 	lb := result.Interface().(loadbalancer.LoadBalancer)

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/spencergibb/go-nuvem/loadbalancer"
 	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist"
-	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist/builder"
+	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist/factory"
 	"github.com/spf13/viper"
 	"net"
 	"strconv"
@@ -57,5 +57,5 @@ func (s *StaticServerList) GetServerKey() string {
 
 func init() {
 	println("registering static serverlist")
-	builder.Register("StaticServerList", NewStaticServerList)
+	factory.Register("StaticServerList", NewStaticServerList)
 }

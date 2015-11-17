@@ -4,14 +4,14 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/spencergibb/go-nuvem/loadbalancer"
-	"github.com/spencergibb/go-nuvem/loadbalancer/builder"
+	"github.com/spencergibb/go-nuvem/loadbalancer/factory"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
 
-func TestChoose(t *testing.T) {
+func TestFactory(t *testing.T) {
 	viper.SetConfigType("yaml")
 	yaml := []byte(``)
 	err := viper.ReadConfig(bytes.NewBuffer(yaml))
@@ -21,7 +21,7 @@ func TestChoose(t *testing.T) {
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}
 
-	lb := builder.Build("test")
+	lb := factory.Create("test")
 	assertLoadBalancer(t, lb)
 }
 
