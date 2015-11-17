@@ -38,7 +38,7 @@ func Build(namespace string) serverlist.ServerList {
 	result := results[0]
 
 	initable := result.Interface().(serverlist.ServerList)
-	initable.Init(namespace)
+	initable.Configure(namespace)
 
 	print(err) //TODO deal with err
 	return initable

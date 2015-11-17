@@ -11,7 +11,7 @@ type Server struct {
 
 type (
 	LoadBalancer interface {
-		util.Initable
+		util.Configurable
 		Choose() *Server
 	}
 

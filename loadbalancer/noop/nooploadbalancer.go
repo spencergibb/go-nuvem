@@ -15,7 +15,7 @@ func NewNoopLoadBalancer() loadbalancer.LoadBalancer {
 	return &NoopLoadBalancer{}
 }
 
-func (s *NoopLoadBalancer) Init(namespace string) {
+func (s *NoopLoadBalancer) Configure(namespace string) {
 	s.namespace = namespace
 }
 

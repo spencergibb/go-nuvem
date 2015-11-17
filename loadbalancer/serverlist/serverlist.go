@@ -6,7 +6,7 @@ import (
 )
 
 type ServerList interface {
-	util.Initable
+	util.Configurable
 	GetServers() []loadbalancer.Server
 }
 

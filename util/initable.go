@@ -1,5 +1,5 @@
 package util
 
-type Initable interface {
-	Init(namespace string)
+type Configurable interface {
+	Configure(namespace string)
 }

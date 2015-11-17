@@ -49,7 +49,7 @@ func Build(namespace string) loadbalancer.LoadBalancer {
 	//	}
 
 	//.Interface().(LoadBalancer)
-	lb.Init(namespace)
+	lb.Configure(namespace)
 
 	print(err) //TODO deal with err
 	return lb

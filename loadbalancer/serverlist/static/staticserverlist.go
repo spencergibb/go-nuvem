@@ -21,7 +21,7 @@ func NewStaticServerList() serverlist.ServerList {
 	return &StaticServerList{}
 }
 
-func (s *StaticServerList) Init(namespace string) {
+func (s *StaticServerList) Configure(namespace string) {
 	s.Namespace = namespace
 	serverConfigs := viper.GetStringSlice(s.GetServerKey())
 	fmt.Printf("serverConfigs %+v\n", serverConfigs)
