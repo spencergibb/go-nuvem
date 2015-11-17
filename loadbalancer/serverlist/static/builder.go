@@ -18,6 +18,5 @@ func (b Builder) Build() serverlist.ServerList {
 	serverList := StaticServerList{}
 	serverList.Namespace = b.namespace
 	serverList.Servers = b.Servers
-	//	serverList.Init(b.namespace)
 	return &serverList
 }

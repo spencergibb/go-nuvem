@@ -22,6 +22,11 @@ func NewStaticServerList() serverlist.ServerList {
 }
 
 func (s *StaticServerList) Configure(namespace string) {
+	if (s.Namespace != "") {
+		//TODO: use logging
+		fmt.Errorf("StaticServerList already inited: %s", s.Namespace)
+		return
+	}
 	s.Namespace = namespace
 	serverConfigs := viper.GetStringSlice(s.GetServerKey())
 	fmt.Printf("serverConfigs %+v\n", serverConfigs)
