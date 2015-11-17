@@ -12,7 +12,8 @@ import (
 
 type (
 	StaticServerList struct {
-		namespace string
+		Namespace string
+		Servers   []string
 	}
 )
 
@@ -21,18 +22,16 @@ func NewStaticServerList() serverlist.ServerList {
 }
 
 func (s *StaticServerList) Init(namespace string) {
-	s.namespace = namespace
+	s.Namespace = namespace
+	serverConfigs := viper.GetStringSlice(s.GetServerKey())
+	fmt.Printf("serverConfigs %+v\n", serverConfigs)
+	s.Servers = serverConfigs
 }
 
 func (s *StaticServerList) GetServers() []loadbalancer.Server {
-	key := fmt.Sprintf("loadbalancer.%s.serverlist.static.servers", s.namespace)
-	fmt.Printf("key %+v\n", key)
-	serverConfigs := viper.GetStringSlice(key)
-	fmt.Printf("serverConfigs %+v\n", serverConfigs)
+	servers := make([]loadbalancer.Server, len(s.Servers))
 
-	servers := make([]loadbalancer.Server, len(serverConfigs))
-
-	for i, config := range serverConfigs {
+	for i, config := range s.Servers {
 		host, portStr, err := net.SplitHostPort(config)
 
 		port, err := strconv.Atoi(portStr)
@@ -45,7 +44,13 @@ func (s *StaticServerList) GetServers() []loadbalancer.Server {
 	return servers
 }
 
+func (s *StaticServerList) GetServerKey() string {
+	key := fmt.Sprintf("loadbalancer.%s.serverlist.static.servers", s.Namespace)
+	fmt.Printf("key %+v\n", key)
+	return key
+}
+
 func init() {
-	println("registering static lb")
+	println("registering static serverlist")
 	builder.Register("StaticServerList", NewStaticServerList)
 }

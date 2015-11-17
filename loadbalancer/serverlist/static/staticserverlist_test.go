@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/spencergibb/go-nuvem/initialize"
+	"github.com/spencergibb/go-nuvem/loadbalancer"
+	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist"
 	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist/builder"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
@@ -21,25 +23,46 @@ loadbalancer.test.serverlist.static.servers:
 `)
 	err := viper.ReadConfig(bytes.NewBuffer(yaml))
 	viper.SetDefault("loadbalancer.serverlist.test.factory", "StaticServerList")
+
+	if err != nil { // Handle errors reading the config file
+		panic(fmt.Errorf("Fatal error config file: %s \n", err))
+	}
 	//	servers := viper.GetStringSlice("loadbalancer.test.static.servers")
 	//	fmt.Printf("%+v\n", servers)
 	//	factory := viper.GetString("loadbalancer.test.factory")
 	//	fmt.Printf("%+v\n", factory)
 
-	if err != nil { // Handle errors reading the config file
-		panic(fmt.Errorf("Fatal error config file: %s \n", err))
-	}
+	serverList := builder.Build("test")
+	servers := assertServerList(t, serverList, 2)
 
-	sl := builder.Build("test")
-	require.NotNil(t, sl, "sl was nil")
+	assertServer(t, servers[0], "localhost", 8080)
+	assertServer(t, servers[1], "127.0.0.1", 9080)
+}
 
-	servers := sl.GetServers()
-	require.NotNil(t, servers, "servers was nil")
-	assert.Equal(t, 2, len(servers), "wrong # of servers")
+func TestBuilder(t *testing.T) {
+	println("\nTestBuilder")
+	b := NewBuilder("test")
+	b.Servers = []string{"localhost:8080", "10.0.0.1:8765"}
+	serverList := b.Build()
 
-	server := servers[0]
+	servers := assertServerList(t, serverList, 2)
+	assertServer(t, servers[0], "localhost", 8080)
+	assertServer(t, servers[1], "10.0.0.1", 8765)
+}
+
+func assertServer(t *testing.T, server loadbalancer.Server, host string, port int) {
 	fmt.Printf("%+v\n", server)
 
-	assert.Equal(t, "localhost", server.Host, "wrong Host")
-	assert.Equal(t, 8080, server.Port, "wrong Port")
+	assert.Equal(t, host, server.Host, "wrong Host")
+	assert.Equal(t, port, server.Port, "wrong Port")
+}
+
+func assertServerList(t *testing.T, serverList serverlist.ServerList, count int) []loadbalancer.Server {
+	require.NotNil(t, serverList, "serverList was nil")
+
+	servers := serverList.GetServers()
+	require.NotNil(t, servers, "servers was nil")
+	assert.Equal(t, count, len(servers), "wrong # of servers")
+
+	return servers
 }

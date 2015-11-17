@@ -10,5 +10,9 @@ type ServerList interface {
 	GetServers() []loadbalancer.Server
 }
 
+type Builder interface {
+	Build() ServerList
+}
+
 func init() {
 }
