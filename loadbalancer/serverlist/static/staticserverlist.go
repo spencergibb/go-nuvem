@@ -10,15 +10,9 @@ import (
 	"strconv"
 )
 
-type (
-	StaticServerList struct {
-		Namespace string
-		Servers   []string
-	}
-)
-
-func NewStaticServerList() serverlist.ServerList {
-	return &StaticServerList{}
+type StaticServerList struct {
+	Namespace string
+	Servers   []string
 }
 
 func (s *StaticServerList) Configure(namespace string) {
@@ -53,6 +47,10 @@ func (s *StaticServerList) GetServerKey() string {
 	key := fmt.Sprintf("loadbalancer.%s.serverlist.static.servers", s.Namespace)
 	fmt.Printf("key %+v\n", key)
 	return key
+}
+
+func NewStaticServerList() serverlist.ServerList {
+	return &StaticServerList{}
 }
 
 var FactoryKey = "StaticServerList"

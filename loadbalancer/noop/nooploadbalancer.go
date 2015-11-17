@@ -6,14 +6,8 @@ import (
 	"github.com/spencergibb/go-nuvem/loadbalancer/factory"
 )
 
-type (
-	NoopLoadBalancer struct {
-		Namespace string
-	}
-)
-
-func NewNoopLoadBalancer() loadbalancer.LoadBalancer {
-	return &NoopLoadBalancer{}
+type NoopLoadBalancer struct {
+	Namespace string
 }
 
 func (s *NoopLoadBalancer) Configure(namespace string) {
@@ -31,7 +25,9 @@ func (s *NoopLoadBalancer) Choose() *loadbalancer.Server {
 
 var FactoryKey = "NoopLoadBalancer"
 
-func Load() {}
+func NewNoopLoadBalancer() loadbalancer.LoadBalancer {
+	return &NoopLoadBalancer{}
+}
 
 func init() {
 	factory.Register(FactoryKey, NewNoopLoadBalancer)

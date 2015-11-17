@@ -16,10 +16,6 @@ type (
 	}
 )
 
-func NewSimpleLoadBalancer() loadbalancer.LoadBalancer {
-	return &SimpleLoadBalancer{}
-}
-
 func (s *SimpleLoadBalancer) Configure(namespace string) {
 	if s.Namespace != "" {
 		//TODO: use logging
@@ -39,7 +35,9 @@ func (s *SimpleLoadBalancer) Choose() *loadbalancer.Server {
 
 var FactoryKey = "SimpleLoadBalancer"
 
-func Load() {}
+func NewSimpleLoadBalancer() loadbalancer.LoadBalancer {
+	return &SimpleLoadBalancer{}
+}
 
 func init() {
 	factory.Register(FactoryKey, NewSimpleLoadBalancer)
