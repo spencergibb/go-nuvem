@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/spencergibb/go-nuvem/loadbalancer"
-	"github.com/spencergibb/go-nuvem/loadbalancer/factory"
 	"github.com/spencergibb/go-nuvem/loadbalancer/rule"
 	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist/static"
 	"github.com/spf13/viper"
@@ -27,7 +26,7 @@ loadbalancer.test.serverlist.static.servers:
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}
 
-	lb := factory.Create("test")
+	lb := loadbalancer.Create("test")
 	assertLoadBalancer(t, lb)
 }
 

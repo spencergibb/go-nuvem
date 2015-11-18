@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/spencergibb/go-nuvem/loadbalancer"
 	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist"
-	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist/factory"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -30,7 +29,7 @@ loadbalancer.test.serverlist.static.servers:
 	//	factory := viper.GetString("loadbalancer.test.factory")
 	//	fmt.Printf("%+v\n", factory)
 
-	serverList := factory.Create("test")
+	serverList := serverlist.Create("test")
 	servers := assertServerList(t, serverList, 2)
 
 	assertServer(t, servers[0], "localhost", 8080)

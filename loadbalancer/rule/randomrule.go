@@ -31,5 +31,5 @@ func NewRandomRule() Rule {
 }
 
 func init() {
-	RegisterRule(FactoryKey, NewRandomRule)
+	Register(FactoryKey, NewRandomRule)
 }

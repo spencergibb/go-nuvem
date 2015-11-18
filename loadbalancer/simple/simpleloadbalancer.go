@@ -3,10 +3,8 @@ package simple
 import (
 	"fmt"
 	"github.com/spencergibb/go-nuvem/loadbalancer"
-	"github.com/spencergibb/go-nuvem/loadbalancer/factory"
 	"github.com/spencergibb/go-nuvem/loadbalancer/rule"
 	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist"
-	slfactory "github.com/spencergibb/go-nuvem/loadbalancer/serverlist/factory"
 )
 
 type (
@@ -23,8 +21,8 @@ func (s *SimpleLoadBalancer) Configure(namespace string) {
 		fmt.Errorf("%s already inited: %s", FactoryKey, s.Namespace)
 		return
 	}
-	s.ServerList = slfactory.Create(namespace)
-	s.Rule = rule.CreateRule(namespace)
+	s.ServerList = serverlist.Create(namespace)
+	s.Rule = rule.Create(namespace)
 	s.Namespace = namespace
 }
 
@@ -40,5 +38,5 @@ func NewSimpleLoadBalancer() loadbalancer.LoadBalancer {
 }
 
 func init() {
-	factory.Register(FactoryKey, NewSimpleLoadBalancer)
+	loadbalancer.Register(FactoryKey, NewSimpleLoadBalancer)
 }

@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/spencergibb/go-nuvem/loadbalancer"
-	"github.com/spencergibb/go-nuvem/loadbalancer/factory"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -21,7 +20,7 @@ func TestFactory(t *testing.T) {
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}
 
-	lb := factory.Create("test")
+	lb := loadbalancer.Create("test")
 	assertLoadBalancer(t, lb)
 }
 
