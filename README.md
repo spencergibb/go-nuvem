@@ -24,6 +24,7 @@ A spring cloud (nuvem is cloud in portuguese) compatible framework in go.
 ### TODO:
 
 - [ ] Ribbon replacement
+  - [X] Minimal impl (loadbalancer, serverlist & rule)
 - [ ] DiscoveryClient
 - [ ] Eureka Discovery Client
 
