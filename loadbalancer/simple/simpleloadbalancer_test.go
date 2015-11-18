@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/spencergibb/go-nuvem/loadbalancer"
 	"github.com/spencergibb/go-nuvem/loadbalancer/rule"
-	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist/static"
+	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -34,7 +34,7 @@ func TestBuilder(t *testing.T) {
 	println("\nTestBuilder")
 	lb := NewBuilder().
 		Namespace("test").
-		ServerList(static.NewBuilder("test").Servers("10.0.0.1:80").Build()).
+		ServerList(serverlist.NewStaticBuilder("test").Servers("10.0.0.1:80").Build()).
 		Rule(rule.NewRandomRule()).
 		Build()
 

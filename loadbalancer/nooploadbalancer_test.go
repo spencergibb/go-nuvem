@@ -1,9 +1,8 @@
-package noop
+package loadbalancer
 
 import (
 	"bytes"
 	"fmt"
-	"github.com/spencergibb/go-nuvem/loadbalancer"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -20,18 +19,18 @@ func TestFactory(t *testing.T) {
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}
 
-	lb := loadbalancer.Create("test")
+	lb := Create("test")
 	assertLoadBalancer(t, lb)
 }
 
-func TestBuilder(t *testing.T) {
+func TestManual(t *testing.T) {
 	println("\nTestBuilder")
-	lb := NewBuilder("test").Build()
+	lb := NoopLoadBalancer{Namespace: "test"}
 
-	assertLoadBalancer(t, lb)
+	assertLoadBalancer(t, &lb)
 }
 
-func assertLoadBalancer(t *testing.T, lb loadbalancer.LoadBalancer) {
+func assertLoadBalancer(t *testing.T, lb LoadBalancer) {
 	require.NotNil(t, lb, "lb was nil")
 
 	server := lb.Choose()

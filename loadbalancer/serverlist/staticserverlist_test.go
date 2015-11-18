@@ -1,10 +1,9 @@
-package static
+package serverlist
 
 import (
 	"bytes"
 	"fmt"
 	"github.com/spencergibb/go-nuvem/loadbalancer"
-	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -29,7 +28,7 @@ loadbalancer.test.serverlist.static.servers:
 	//	factory := viper.GetString("loadbalancer.test.factory")
 	//	fmt.Printf("%+v\n", factory)
 
-	serverList := serverlist.Create("test")
+	serverList := Create("test")
 	servers := assertServerList(t, serverList, 2)
 
 	assertServer(t, servers[0], "localhost", 8080)
@@ -38,7 +37,7 @@ loadbalancer.test.serverlist.static.servers:
 
 func TestBuilder(t *testing.T) {
 	println("\nTestBuilder")
-	serverList := NewBuilder("test").
+	serverList := NewStaticBuilder("test").
 		Servers("localhost:8080", "10.0.0.1:8765").
 		Build()
 
@@ -54,7 +53,7 @@ func assertServer(t *testing.T, server loadbalancer.Server, host string, port in
 	assert.Equal(t, port, server.Port, "wrong Port")
 }
 
-func assertServerList(t *testing.T, serverList serverlist.ServerList, count int) []loadbalancer.Server {
+func assertServerList(t *testing.T, serverList ServerList, count int) []loadbalancer.Server {
 	require.NotNil(t, serverList, "serverList was nil")
 
 	servers := serverList.GetServers()

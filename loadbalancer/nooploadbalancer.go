@@ -1,8 +1,7 @@
-package noop
+package loadbalancer
 
 import (
 	"fmt"
-	"github.com/spencergibb/go-nuvem/loadbalancer"
 )
 
 type NoopLoadBalancer struct {
@@ -18,16 +17,16 @@ func (s *NoopLoadBalancer) Configure(namespace string) {
 	s.Namespace = namespace
 }
 
-func (s *NoopLoadBalancer) Choose() *loadbalancer.Server {
+func (s *NoopLoadBalancer) Choose() *Server {
 	return nil
 }
 
 var FactoryKey = "NoopLoadBalancer"
 
-func NewNoopLoadBalancer() loadbalancer.LoadBalancer {
+func NewNoopLoadBalancer() LoadBalancer {
 	return &NoopLoadBalancer{}
 }
 
 func init() {
-	loadbalancer.Register(FactoryKey, NewNoopLoadBalancer)
+	Register(FactoryKey, NewNoopLoadBalancer)
 }
