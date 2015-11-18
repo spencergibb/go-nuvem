@@ -4,16 +4,16 @@ import (
 	"fmt"
 	"github.com/spencergibb/go-nuvem/loadbalancer"
 	"github.com/spencergibb/go-nuvem/loadbalancer/factory"
+	"github.com/spencergibb/go-nuvem/loadbalancer/rule"
 	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist"
 	slfactory "github.com/spencergibb/go-nuvem/loadbalancer/serverlist/factory"
-	"github.com/spencergibb/go-nuvem/loadbalancer/rule"
 )
 
 type (
 	SimpleLoadBalancer struct {
-		Namespace string
+		Namespace  string
 		ServerList serverlist.ServerList
-		Rule rule.Rule
+		Rule       rule.Rule
 	}
 )
 

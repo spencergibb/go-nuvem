@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"github.com/spencergibb/go-nuvem/loadbalancer"
 	"github.com/spencergibb/go-nuvem/loadbalancer/factory"
+	"github.com/spencergibb/go-nuvem/loadbalancer/rule"
 	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist/static"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
-	"github.com/spencergibb/go-nuvem/loadbalancer/rule"
 )
 
 func TestFactory(t *testing.T) {

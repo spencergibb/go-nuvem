@@ -2,8 +2,8 @@ package simple
 
 import (
 	"github.com/spencergibb/go-nuvem/loadbalancer"
-	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist"
 	"github.com/spencergibb/go-nuvem/loadbalancer/rule"
+	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist"
 )
 
 func NewBuilder() *Builder {
@@ -14,7 +14,7 @@ func NewBuilder() *Builder {
 type Builder struct {
 	namespace  string
 	serverList serverlist.ServerList
-	rule rule.Rule
+	rule       rule.Rule
 }
 
 func (b *Builder) Namespace(ns string) *Builder {

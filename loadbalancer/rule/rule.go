@@ -1,7 +1,8 @@
 package rule
+
 import (
-	"github.com/spencergibb/go-nuvem/util"
 	"github.com/spencergibb/go-nuvem/loadbalancer"
+	"github.com/spencergibb/go-nuvem/util"
 )
 
 type Rule interface {

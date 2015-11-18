@@ -1,9 +1,11 @@
 package rule
+
 import (
-	"github.com/spencergibb/go-nuvem/loadbalancer"
 	"fmt"
-"math/rand"
+	"github.com/spencergibb/go-nuvem/loadbalancer"
+	"math/rand"
 )
+
 type RandomRule struct {
 	Namespace string
 }
