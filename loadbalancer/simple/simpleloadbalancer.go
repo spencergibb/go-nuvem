@@ -6,13 +6,14 @@ import (
 	"github.com/spencergibb/go-nuvem/loadbalancer/factory"
 	"github.com/spencergibb/go-nuvem/loadbalancer/serverlist"
 	slfactory "github.com/spencergibb/go-nuvem/loadbalancer/serverlist/factory"
-	"math/rand"
+	"github.com/spencergibb/go-nuvem/loadbalancer/rule"
 )
 
 type (
 	SimpleLoadBalancer struct {
-		Namespace  string
+		Namespace string
 		ServerList serverlist.ServerList
+		Rule rule.Rule
 	}
 )
 
@@ -23,14 +24,13 @@ func (s *SimpleLoadBalancer) Configure(namespace string) {
 		return
 	}
 	s.ServerList = slfactory.Create(namespace)
+	s.Rule = rule.CreateRule(namespace)
 	s.Namespace = namespace
 }
 
 func (s *SimpleLoadBalancer) Choose() *loadbalancer.Server {
 	servers := s.ServerList.GetServers()
-	//	TODO: implement rules
-	idx := rand.Intn(len(servers))
-	return &servers[idx]
+	return s.Rule.Choose(servers)
 }
 
 var FactoryKey = "SimpleLoadBalancer"

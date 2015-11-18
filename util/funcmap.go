@@ -52,7 +52,7 @@ func (f Funcs) CallFactory(keyPrefix string, namespace string, defaultFactory st
 	if !viper.IsSet(key) {
 		//TODO: warn
 		println("key is not set: ", key)
-		factory = "StaticServerList" //TODO: default
+		factory = defaultFactory
 	} else {
 		factory = viper.GetString(key)
 	}

@@ -10,6 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
+	"github.com/spencergibb/go-nuvem/loadbalancer/rule"
 )
 
 func TestFactory(t *testing.T) {
@@ -35,6 +36,7 @@ func TestBuilder(t *testing.T) {
 	lb := NewBuilder().
 		Namespace("test").
 		ServerList(static.NewBuilder("test").Servers("10.0.0.1:80").Build()).
+		Rule(rule.NewRandomRule()).
 		Build()
 
 	assertLoadBalancer(t, lb)
