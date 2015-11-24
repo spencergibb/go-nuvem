@@ -26,7 +26,9 @@ A spring cloud (nuvem is cloud in portuguese) compatible framework in go.
 - [ ] Ribbon replacement
   - [X] Minimal impl (loadbalancer, serverlist & rule)
 - [ ] DiscoveryClient
-- [ ] Eureka Discovery Client
+  - [X] static discovery client
+  - [ ] Eureka Discovery Client
+- [ ] ServiceRegistry
 
 ### Similar
 https://github.com/go-kit/kit
