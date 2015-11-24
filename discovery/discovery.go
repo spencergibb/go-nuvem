@@ -22,7 +22,7 @@ func Register(name string, fn interface{}) (err error) {
 }
 
 func Create(namespace string) Discovery {
-	result := factories.CallFactory("nuvem.discovery", namespace, "StaticDiscovery")
+	result := factories.CallFactory("nuvem.discovery", namespace, StaticFactoryKey)
 
 	sl := result.Interface().(Discovery)
 	sl.Configure(namespace)

@@ -54,12 +54,13 @@ func (f Funcs) CallFactory(keyPrefix string, namespace string, defaultFactory st
 		println("key is not set: ", key)
 		factory = defaultFactory
 	} else {
+		println("key is set: ", key)
 		factory = viper.GetString(key)
 	}
-	println("factory ", factory)
+	fmt.Printf("factory '%s'\n", factory)
 	results, err := f.Call(factory)
 
-	print(err) //TODO deal with err
+	fmt.Errorf("error in CallFactory. key: %s, factory: %s\n%s", key, factory, err) //TODO deal with err
 
 	if len(results) != 1 {
 		return nil //, errors.New("Wrong number of loadbalancer results " + strconv.Itoa(len(results)))

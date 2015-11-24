@@ -15,7 +15,7 @@ type StaticDiscovery struct {
 func (s *StaticDiscovery) Configure(namespace string) {
 	if s.Namespace != "" {
 		//TODO: use logging
-		fmt.Errorf("%s already inited: %s", FactoryKey, s.Namespace)
+		fmt.Errorf("%s already inited: %s", StaticFactoryKey, s.Namespace)
 		return
 	}
 	s.Namespace = namespace
@@ -50,9 +50,9 @@ func NewStaticDiscovery() Discovery {
 	return &StaticDiscovery{}
 }
 
-var FactoryKey = "StaticDiscovery"
+var StaticFactoryKey = "StaticDiscovery"
 
 func init() {
 	println("registering static discovery")
-	Register(FactoryKey, NewStaticDiscovery)
+	Register(StaticFactoryKey, NewStaticDiscovery)
 }

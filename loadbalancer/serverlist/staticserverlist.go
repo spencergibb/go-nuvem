@@ -16,7 +16,7 @@ type StaticServerList struct {
 func (s *StaticServerList) Configure(namespace string) {
 	if s.Namespace != "" {
 		//TODO: use logging
-		fmt.Errorf("%s already inited: %s", FactoryKey, s.Namespace)
+		fmt.Errorf("%s already inited: %s", StaticFactoryKey, s.Namespace)
 		return
 	}
 	s.Namespace = namespace
@@ -51,9 +51,9 @@ func NewStaticServerList() ServerList {
 	return &StaticServerList{}
 }
 
-var FactoryKey = "StaticServerList"
+var StaticFactoryKey = "StaticServerList"
 
 func init() {
 	println("registering static serverlist")
-	Register(FactoryKey, NewStaticServerList)
+	Register(StaticFactoryKey, NewStaticServerList)
 }
