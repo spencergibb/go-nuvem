@@ -11,7 +11,7 @@ func Register(name string, fn interface{}) (err error) {
 }
 
 func Create(namespace string) LoadBalancer {
-	result := factories.CallFactory("loadbalancer", namespace, "NoopLoadBalancer")
+	result := factories.CallFactory("nuvem.loadbalancer", namespace, "NoopLoadBalancer")
 
 	lb := result.Interface().(LoadBalancer)
 	lb.Configure(namespace)

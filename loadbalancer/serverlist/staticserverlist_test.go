@@ -13,19 +13,19 @@ import (
 func TestFactory(t *testing.T) {
 	viper.SetConfigType("yaml")
 	yaml := []byte(`
-loadbalancer.test.serverlist.static.servers:
+nuvem.loadbalancer.test.serverlist.static.servers:
 - localhost:8080
 - 127.0.0.1:9080
 `)
 	err := viper.ReadConfig(bytes.NewBuffer(yaml))
-	viper.SetDefault("loadbalancer.serverlist.test.factory", "StaticServerList")
+	viper.SetDefault("nuvem.loadbalancer.serverlist.test.factory", "StaticServerList")
 
 	if err != nil { // Handle errors reading the config file
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}
-	//	servers := viper.GetStringSlice("loadbalancer.test.static.servers")
+	//	servers := viper.GetStringSlice("nuvem.loadbalancer.test.static.servers")
 	//	fmt.Printf("%+v\n", servers)
-	//	factory := viper.GetString("loadbalancer.test.factory")
+	//	factory := viper.GetString("nuvem.loadbalancer.test.factory")
 	//	fmt.Printf("%+v\n", factory)
 
 	serverList := Create("test")

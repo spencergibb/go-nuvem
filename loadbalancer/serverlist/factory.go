@@ -11,7 +11,7 @@ func Register(name string, fn interface{}) (err error) {
 }
 
 func Create(namespace string) ServerList {
-	result := factories.CallFactory("loadbalancer.serverlist", namespace, "StaticServerList")
+	result := factories.CallFactory("nuvem.loadbalancer.serverlist", namespace, "StaticServerList")
 
 	sl := result.Interface().(ServerList)
 	sl.Configure(namespace)

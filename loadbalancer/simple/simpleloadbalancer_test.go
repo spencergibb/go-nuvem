@@ -15,12 +15,12 @@ import (
 func TestFactory(t *testing.T) {
 	viper.SetConfigType("yaml")
 	yaml := []byte(`
-loadbalancer.test.serverlist.static.servers:
+nuvem.loadbalancer.test.serverlist.static.servers:
 - localhost:8080
 - 127.0.0.1:9080
 `)
 	err := viper.ReadConfig(bytes.NewBuffer(yaml))
-	viper.SetDefault("loadbalancer.test.factory", FactoryKey)
+	viper.SetDefault("nuvem.loadbalancer.test.factory", FactoryKey)
 
 	if err != nil { // Handle errors reading the config file
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))

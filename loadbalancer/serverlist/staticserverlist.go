@@ -42,7 +42,7 @@ func (s *StaticServerList) GetServers() []loadbalancer.Server {
 }
 
 func (s *StaticServerList) GetServerKey() string {
-	key := fmt.Sprintf("loadbalancer.%s.serverlist.static.servers", s.Namespace)
+	key := fmt.Sprintf("nuvem.loadbalancer.%s.serverlist.static.servers", s.Namespace)
 	fmt.Printf("key %+v\n", key)
 	return key
 }

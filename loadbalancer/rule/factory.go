@@ -11,7 +11,7 @@ func Register(name string, fn interface{}) (err error) {
 }
 
 func Create(namespace string) Rule {
-	result := factories.CallFactory("loadbalancer.rule", namespace, "RandomRule")
+	result := factories.CallFactory("nuvem.loadbalancer.rule", namespace, "RandomRule")
 
 	rule := result.Interface().(Rule)
 	rule.Configure(namespace)

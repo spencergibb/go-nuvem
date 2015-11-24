@@ -13,7 +13,7 @@ func TestFactory(t *testing.T) {
 	viper.SetConfigType("yaml")
 	yaml := []byte(``)
 	err := viper.ReadConfig(bytes.NewBuffer(yaml))
-	viper.SetDefault("loadbalancer.test.factory", "NoopLoadBalancer")
+	viper.SetDefault("nuvem.loadbalancer.test.factory", "NoopLoadBalancer")
 
 	if err != nil { // Handle errors reading the config file
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
