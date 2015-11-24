@@ -17,6 +17,10 @@ func (s *NoopLoadBalancer) Configure(namespace string) {
 	s.Namespace = namespace
 }
 
+func (s *NoopLoadBalancer) GetNamespace() string {
+	return s.Namespace
+}
+
 func (s *NoopLoadBalancer) Choose() *Server {
 	return nil
 }

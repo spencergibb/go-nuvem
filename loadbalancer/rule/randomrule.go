@@ -24,6 +24,10 @@ func (s *RandomRule) Choose(servers []loadbalancer.Server) *loadbalancer.Server 
 	return &servers[idx]
 }
 
+func (s *RandomRule) GetNamespace() string {
+	return s.Namespace
+}
+
 var FactoryKey = "RandomRule"
 
 func NewRandomRule() Rule {

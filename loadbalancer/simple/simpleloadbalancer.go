@@ -31,6 +31,10 @@ func (s *SimpleLoadBalancer) Choose() *loadbalancer.Server {
 	return s.Rule.Choose(servers)
 }
 
+func (s *SimpleLoadBalancer) GetNamespace() string {
+	return s.Namespace
+}
+
 var FactoryKey = "SimpleLoadBalancer"
 
 func NewSimpleLoadBalancer() loadbalancer.LoadBalancer {

@@ -20,7 +20,7 @@ func (s *StaticDiscovery) Configure(namespace string) {
 		return
 	}
 	s.Namespace = namespace
-	instances := viper.GetStringSlice(s.GetServerKey())
+	instances := viper.GetStringSlice(util.GetStaticRegistryKey(s))
 	fmt.Printf("instances %+v\n", instances)
 	s.Instances = instances
 }
@@ -41,10 +41,8 @@ func (s *StaticDiscovery) GetIntances() []util.Instance {
 	return instances
 }
 
-func (s *StaticDiscovery) GetServerKey() string {
-	key := fmt.Sprintf("nuvem.discovery.%s.static.servers", s.Namespace)
-	fmt.Printf("key %+v\n", key)
-	return key
+func (s *StaticDiscovery) GetNamespace() string {
+	return s.Namespace
 }
 
 func NewStaticDiscovery() Discovery {

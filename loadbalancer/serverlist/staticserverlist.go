@@ -47,6 +47,10 @@ func (s *StaticServerList) GetServerKey() string {
 	return key
 }
 
+func (s *StaticServerList) GetNamespace() string {
+	return s.Namespace
+}
+
 func NewStaticServerList() ServerList {
 	return &StaticServerList{}
 }

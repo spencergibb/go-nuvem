@@ -32,6 +32,10 @@ func (s *DiscoveryServerList) GetServers() []loadbalancer.Server {
 	return servers
 }
 
+func (s *DiscoveryServerList) GetNamespace() string {
+	return s.Namespace
+}
+
 func NewDiscoveryServerList() ServerList {
 	return &DiscoveryServerList{}
 }
