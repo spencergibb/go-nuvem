@@ -4,15 +4,9 @@ import (
 	"github.com/spencergibb/go-nuvem/util"
 )
 
-type Instance struct {
-	Id   string
-	Host string
-	Port int
-}
-
 type Discovery interface {
 	util.Configurable
-	GetIntances() []Instance
+	GetIntances() []util.Instance
 }
 
 var factories = util.NewFuncs()

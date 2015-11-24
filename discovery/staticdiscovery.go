@@ -2,6 +2,7 @@ package discovery
 
 import (
 	"fmt"
+	"github.com/spencergibb/go-nuvem/util"
 	"github.com/spf13/viper"
 	"net"
 	"strconv"
@@ -24,8 +25,8 @@ func (s *StaticDiscovery) Configure(namespace string) {
 	s.Instances = instances
 }
 
-func (s *StaticDiscovery) GetIntances() []Instance {
-	instances := make([]Instance, len(s.Instances))
+func (s *StaticDiscovery) GetIntances() []util.Instance {
+	instances := make([]util.Instance, len(s.Instances))
 
 	for i, config := range s.Instances {
 		host, portStr, err := net.SplitHostPort(config)
@@ -34,7 +35,7 @@ func (s *StaticDiscovery) GetIntances() []Instance {
 
 		print(err) //TODO: deal with err
 
-		instances[i] = Instance{Host: host, Port: port}
+		instances[i] = util.Instance{Host: host, Port: port}
 	}
 
 	return instances

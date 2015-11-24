@@ -3,6 +3,7 @@ package discovery
 import (
 	"bytes"
 	"fmt"
+	"github.com/spencergibb/go-nuvem/util"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -45,14 +46,14 @@ func TestBuilder(t *testing.T) {
 	assertInstance(t, instances[1], "10.0.0.1", 8765)
 }
 
-func assertInstance(t *testing.T, instance Instance, host string, port int) {
+func assertInstance(t *testing.T, instance util.Instance, host string, port int) {
 	fmt.Printf("%+v\n", instance)
 
 	assert.Equal(t, host, instance.Host, "wrong Host")
 	assert.Equal(t, port, instance.Port, "wrong Port")
 }
 
-func assertDiscovery(t *testing.T, discovery Discovery, count int) []Instance {
+func assertDiscovery(t *testing.T, discovery Discovery, count int) []util.Instance {
 	require.NotNil(t, discovery, "discovery was nil")
 
 	instances := discovery.GetIntances()
